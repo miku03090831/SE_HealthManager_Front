@@ -23,6 +23,10 @@ body,
   padding: 0;
 }
 
+.el-scrollbar__wrap{
+  overflow-x: hidden!important;
+}
+
 
 
 

@@ -1,14 +1,24 @@
-# SE_HealthManager_Front
- 软件工程课程
+# health-manager
 
- 互联网医疗健康平台 项目前端部分
+## Project setup
+```
+npm install
+```
 
-## 运行方法
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-首先clone本仓库到本地
+### Compiles and minifies for production
+```
+npm run build
+```
 
-在项目根目录下，使用命令行或者vscode终端（推荐）输入`npm install`安装项目依赖
+### Lints and fixes files
+```
+npm run lint
+```
 
-安装完毕后输入`npm run serve`，在本地运行项目
-
-运行成功后，使用浏览器（推荐Chrome或Edge）在地址栏输入"localhost:8080"即可
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

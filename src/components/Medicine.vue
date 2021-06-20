@@ -69,9 +69,9 @@ export default {
     };
   },
   methods: {
-    load() {
-      this.count += 2;
-    },
+    // load() {
+    //   this.count += 2;
+    // },
   },
 };
 </script>
