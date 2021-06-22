@@ -274,6 +274,10 @@ h2 {
   padding: 20px;
 }
 
+ #healthform >>> .el-input.is-disabled .el-input__inner{
+  color:#000;
+}
+
 #healthform > .mult-line >>> .el-form-item__label {
   line-height: 20px;
   vertical-align: middle;

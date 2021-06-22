@@ -4,18 +4,18 @@
           <Healthdata :user=user></Healthdata>
       </div>
       <div class="hchart">
-          <Healthchart></Healthchart>
+          <HealthchartTest></HealthchartTest>
       </div>
   </div>
 </template>
 
 <script>
-import Healthchart from "./Healthchart";
+import HealthchartTest from "./HealthchartTest";
 import Healthdata from "./Healthdata";
 export default {
   name: 'Healthfile',
   components: {
-      Healthchart,
+      HealthchartTest,
       Healthdata
   },
   props:["user"]
