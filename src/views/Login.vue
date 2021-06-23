@@ -14,7 +14,7 @@
               <i class="fa fa-user"></i>
             </div>
             <div>
-              <input type="text" placeholder="Username" class="input">
+              <input type="text" v-model="logininfo.username" placeholder="Username" class="input">
             </div>
           </div>
           <div class="input-group">
@@ -22,10 +22,10 @@
               <i class="fa fa-lock"></i>
             </div>
             <div>
-              <input type="password" placeholder="Password" class="input">
+              <input type="password" v-model="logininfo.password" placeholder="Password" class="input">
             </div>
           </div>
-          <input type="submit" class="btn" value="Login">
+          <input type="submit" class="btn" value="Login" @click="login()">
           <input type="submit" class="btn" value="Register" id="visitor" @click="register()">
         </form>
       </div>
@@ -36,8 +36,19 @@
 <script>
 export default {
   name: 'Login',
+  data() {
+    return {
+      logininfo: {
+        username: '',
+        password: '',
+      },
+    }
+  },
   components: {},
   methods: {
+    login() {
+      console.log(this.logininfo)
+    },
     register() {
       this.$router.push('/register')
     },
