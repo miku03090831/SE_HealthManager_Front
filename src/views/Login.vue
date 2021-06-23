@@ -14,8 +14,7 @@
               <i class="fa fa-user"></i>
             </div>
             <div>
-              <!--<h5>Username</h5>-->
-              <input type="text" class="input">
+              <input type="text" placeholder="Username" class="input">
             </div>
           </div>
           <div class="input-group">
@@ -23,13 +22,11 @@
               <i class="fa fa-lock"></i>
             </div>
             <div>
-              <!--<h5>Password</h5>-->
-              <input type="password" class="input">
+              <input type="password" placeholder="Password" class="input">
             </div>
           </div>
-          <a href="#">Forgot Password?</a>
-          <input type="submit" class="btn" value="Login" @click="showinfo()">
-          <input type="submit" class="btn" value="Register" id="visitor" @click="visitor()">
+          <input type="submit" class="btn" value="Login">
+          <input type="submit" class="btn" value="Register" id="visitor" @click="register()">
         </form>
       </div>
     </div>
@@ -41,19 +38,8 @@ export default {
   name: 'Login',
   components: {},
   methods: {
-    visitor() {
+    register() {
       this.$router.push('/register')
-    },
-    showinfo() {
-      this.$alert('登录失败', {
-        confirmButtonText: '重新输入',
-        callback: (action) => {
-          this.$message({
-            type: 'info',
-            message: `action: ${action}`,
-          })
-        },
-      })
     },
   },
 }
@@ -104,7 +90,7 @@ form h2 {
   font-size: 2.9rem;
   text-transform: uppercase;
   margin: 15px 0;
-  color: #999;
+  color: #38d39f;
 }
 
 .input-group {
@@ -192,6 +178,11 @@ form h2 {
   font-size: 1.2rem;
   color: #555;
   font-family: 'Roboto', sans-serif;
+}
+
+.input::placeholder {
+  color: #999;
+  font-size: 1.2rem;
 }
 
 a {

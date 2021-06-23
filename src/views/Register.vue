@@ -174,7 +174,7 @@ form h2 {
   font-size: 2.2rem;
   margin: 15px 0;
   margin-left: 80px;
-  color: rgb(56, 147, 201);
+  color: #ffbf00;
 }
 
 .input-group {
