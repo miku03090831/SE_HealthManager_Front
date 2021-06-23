@@ -10,7 +10,7 @@
           <img src="../assets/avatar.svg" alt="" class="avatar">
           <h2>Register</h2>
           <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
-            <el-form-item label="用户名" prop="username">
+            <el-form-item label="姓名" prop="username">
               <el-input type="username" v-model="ruleForm.username" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="pass">
@@ -54,8 +54,8 @@ export default {
     var checkName = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('用户名不能为空'))
-      } else if (value.length > 10 || value.length < 6) {
-        callback(new Error('用户名长度在6-10个字符之间'))
+      } else if (value.length > 20 || value.length < 2) {
+        callback(new Error('姓名长度在2-15个字符之间'))
       } else {
         callback()
       }
@@ -105,13 +105,16 @@ export default {
         if (valid) {
           this.$alert('注册成功！', {
             confirmButtonText: '确定',
+            callback: () => {
+            this.$router.push('/login')
+            }
           })
+          
         } else {
           console.log('error submit!!')
           return false
         }
       })
-      console.log(this.ruleForm)
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()

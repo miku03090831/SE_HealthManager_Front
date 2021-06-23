@@ -14,7 +14,7 @@
               <i class="fa fa-user"></i>
             </div>
             <div>
-              <el-input v-model="logininfo.username" placeholder="Username" maxlength="10"></el-input>
+              <el-input v-model="logininfo.username" placeholder="name" maxlength="10"></el-input>
             </div>
           </div>
           <div class="input-group">
@@ -48,6 +48,7 @@ export default {
   methods: {
     login() {
       console.log(this.logininfo)
+      this.$router.push('/')
     },
     register() {
       this.$router.push('/register')
