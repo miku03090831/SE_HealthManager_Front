@@ -14,7 +14,7 @@
               <i class="fa fa-user"></i>
             </div>
             <div>
-              <input type="text" v-model="logininfo.username" placeholder="Username" class="input">
+              <el-input v-model="logininfo.username" placeholder="Username" maxlength="10"></el-input>
             </div>
           </div>
           <div class="input-group">
@@ -22,7 +22,7 @@
               <i class="fa fa-lock"></i>
             </div>
             <div>
-              <input type="password" v-model="logininfo.password" placeholder="Password" class="input">
+              <el-input v-model="logininfo.password" placeholder="Password" maxlength="12" show-password></el-input>
             </div>
           </div>
           <input type="submit" class="btn" value="Login" @click="login()">
@@ -77,6 +77,10 @@ export default {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+form >>> .el-input__inner {
+  border: none;
 }
 
 .img img {
@@ -194,6 +198,21 @@ form h2 {
 .input::placeholder {
   color: #999;
   font-size: 1.2rem;
+}
+
+.el-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0.5rem 0.7rem;
+  font-size: 1.2rem;
+  color: #555;
+  font-family: 'Roboto', sans-serif;
 }
 
 a {

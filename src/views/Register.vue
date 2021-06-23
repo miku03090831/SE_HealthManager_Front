@@ -14,13 +14,13 @@
               <el-input type="username" v-model="ruleForm.username" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="pass">
-              <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+              <el-input type="password" v-model="ruleForm.pass" maxlength="16" autocomplete="off" show-password></el-input>
             </el-form-item>
             <el-form-item label="确认密码" prop="checkPass">
-              <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+              <el-input type="password" v-model="ruleForm.checkPass" maxlength="16" autocomplete="off" show-password></el-input>
             </el-form-item>
             <el-form-item label="身份证号" prop="identity">
-              <el-input v-model.number="ruleForm.age"></el-input>
+              <el-input v-model.number="ruleForm.age" v-model="ruleForm.identity" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="性别" prop="sex">
               <el-radio-group v-model="ruleForm.sex">
@@ -43,21 +43,19 @@
 export default {
   data() {
     var checkID = (rule, value, callback) => {
-      setTimeout(() => {
-        if (Number.isInteger(value)) {
-          callback(new Error('请输入数字值'))
-        } else {
-          if (value === 18) {
-            callback(new Error('必须年满18岁'))
-          } else {
-            callback()
-          }
-        }
-      }, 1000)
+      if (value === '') {
+        callback(new Error('请输入身份证号'))
+      } else if (value.length !== 18) {
+        callback(new Error('18位身份证号！'))
+      } else {
+        callback()
+      }
     }
     var checkName = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('用户名不能为空'))
+      } else if (value.length > 10 || value.length < 6) {
+        callback(new Error('用户名长度在6-10个字符之间'))
       } else {
         callback()
       }
@@ -65,6 +63,8 @@ export default {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
+      } else if (value.length < 6) {
+        callback(new Error('密码应在6-16位字符之间'))
       } else {
         if (this.ruleForm.checkPass !== '') {
           this.$refs.ruleForm.validateField('checkPass')
@@ -87,6 +87,7 @@ export default {
         checkPass: '',
         identity: '',
         username: '',
+        sex: '',
       },
       rules: {
         pass: [{ validator: validatePass, trigger: 'blur' }],
@@ -99,27 +100,18 @@ export default {
   name: 'register',
   components: {},
   methods: {
-    visitor() {
-      this.$router.push('/')
-    },
     submitForm(formName) {
-      this.$alert('注册成功！', {
-        confirmButtonText: '确定',
-        callback: (action) => {
-          this.$message({
-            type: 'info',
-            message: `action: ${action}`,
-          })
-        },
-      })
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          this.$alert('注册成功！', {
+            confirmButtonText: '确定',
+          })
         } else {
           console.log('error submit!!')
           return false
         }
       })
+      console.log(this.ruleForm)
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
