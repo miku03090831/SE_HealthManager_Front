@@ -15,6 +15,7 @@
       <el-input v-model="input" placeholder="请输入内容"></el-input>
       <el-button type="primary">搜索</el-button>
     </div>
+    <div class="resultnum">搜索共得到 {{ len }} 条结果</div>
     <div class="medicine-list">
       <el-scrollbar>
         <div>
@@ -183,10 +184,16 @@ export default {
   margin: 0 10px;
 }
 
+.resultnum{
+  position: absolute;
+  top: 15%;
+  left: 10%;
+}
+
 .medicine-list {
   position: absolute;
-  height: 85%;
-  top: 15%;
+  height: 80%;
+  top: 20%;
   width: 80%;
   left: 10%;
 }
