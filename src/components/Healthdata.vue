@@ -2,7 +2,7 @@
   <div class="healthdata">
     <h2 class="name">{{ user.name }}({{ user.gender }}) 健康档案</h2>
     <div class="datafile">
-      <el-button @click="edit" :disabled="editing">编辑</el-button>
+      <el-button @click="edit" ref="editButton">编辑</el-button>
       <el-button @click="submit" :disabled="!editing">提交修改</el-button>
       <el-button @click="openMensesForm">生理期记录（仅女性用户可用）</el-button>
       <el-scrollbar>
@@ -143,8 +143,16 @@ export default {
   components: {},
   methods:{
     edit(){
-      this.editing=true;
-      // console.log(this.editing)
+      if(!this.editing){
+        this.editing=true;
+        this.$refs.editButton.$el.innerText="取消编辑";
+      }
+      else{
+        this.editing=false;
+        this.$refs.editButton.$el.innerText="编辑";
+        console.log("本次编辑取消，重新获取原本数据")
+        this.getData();
+      }
     },
     submit(){
       this.editing=false;
@@ -152,6 +160,7 @@ export default {
     },
     openDialog(){
       //用来初始化对话框的内容
+      //获取生理期相关表的数据在进入这个页面时完成
       //计算相关数据
       var now = new Date(),
       month = ''+(now.getMonth()+1),
@@ -200,12 +209,19 @@ export default {
     },
     fresh(){
       //需要重新从数据库拉取提交后的信息
+      this.getMensesData();
       //然后再调用下面的渲染的函数
       this.openDialog()
     },
     setPeriod(){
       this.fresh()
       console.log(this.user_menses_data.set_period)
+    },
+    getData(){
+      console.log("获取用户健康数据");
+    },
+    getMensesData(){
+      console.log("获取用户生理期数据");
     }
   },
   computed:{
@@ -213,6 +229,10 @@ export default {
       let b = this.userdata.weight/(this.userdata.height/100)/(this.userdata.height/100);
       return Math.floor(b * 100) / 100;
     }
+  },
+  beforeMount(){
+    this.getData();
+    this.getMensesData();
   },
   data() {
     return {

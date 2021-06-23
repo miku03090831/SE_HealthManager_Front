@@ -10,9 +10,14 @@
         <el-table-column prop="date" label="日期" width="120">
         </el-table-column>
         <el-table-column prop="time" label="时间" width="90"> </el-table-column>
-        <el-table-column prop="reason" label="病因" width="180">
+        <el-table-column prop="reason" label="病因" width="120">
         </el-table-column>
         <el-table-column prop="cost" label="花销" width="120">
+        </el-table-column>
+        <el-table-column  label="删除" width="60">
+          <template slot-scope="scope">
+            <el-button @click="deleteRec(scope.row)" type="text" size="small">删除</el-button>
+          </template>
         </el-table-column>
         <el-table-column label="详情" type="expand" width="80">
            <template slot-scope="props">
@@ -88,6 +93,7 @@
 <script>
 export default {
   name: "RecordList",
+  props:['user'],
   computed: {
     valid() {
       var v = true;
@@ -109,6 +115,8 @@ export default {
         cost: "",
         place: "",
         diagnosis: "",
+        rid:"",
+        uid:this.user.id
       },
       tableData: [
         {
@@ -116,83 +124,109 @@ export default {
           time: "19:30",
           reason: "发烧",
           cost: "100元",
+          place:"浙江大学校医院玉泉校区",
+          diagnosis:"避免剧烈运动，注意静养休息",
+          rid:"1",
+          uid:this.user.id
         },
         {
           date: "2021-05-03",
           time: "19:30",
           reason: "发烧",
           cost: "100元",
+          place:"浙江大学校医院玉泉校区",
+          diagnosis:"避免剧烈运动，注意静养休息",
+          rid:"2",
+          uid:this.user.id
         },
         {
           date: "2021-05-03",
           time: "19:30",
           reason: "发烧",
           cost: "100元",
+          place:"浙江大学校医院玉泉校区",
+          diagnosis:"避免剧烈运动，注意静养休息",
+          rid:"3",
+          uid:this.user.id
         },
         {
           date: "2021-05-03",
           time: "19:30",
           reason: "发烧",
           cost: "100元",
+          place:"浙江大学校医院玉泉校区",
+          diagnosis:"避免剧烈运动，注意静养休息",
+          rid:"5",
+          uid:this.user.id
         },
         {
           date: "2021-05-03",
           time: "19:30",
           reason: "发烧",
           cost: "100元",
+          place:"浙江大学校医院玉泉校区",
+          diagnosis:"避免剧烈运动，注意静养休息",
+          rid:"8",
+          uid:this.user.id
         },
         {
           date: "2021-05-03",
           time: "19:30",
           reason: "发烧",
           cost: "100元",
+          place:"浙江大学校医院玉泉校区",
+          diagnosis:"避免剧烈运动，注意静养休息",
+          rid:"4",
+          uid:this.user.id
         },
         {
           date: "2021-05-03",
           time: "19:30",
           reason: "发烧",
           cost: "100元",
+          place:"浙江大学校医院玉泉校区",
+          diagnosis:"避免剧烈运动，注意静养休息",
+          rid:"6",
+          uid:this.user.id
         },
         {
           date: "2021-05-03",
           time: "19:30",
           reason: "发烧",
           cost: "100元",
+          place:"浙江大学校医院玉泉校区",
+          diagnosis:"避免剧烈运动，注意静养休息",
+          rid:"7",
+          uid:this.user.id
         },
         {
           date: "2021-05-03",
           time: "19:30",
           reason: "发烧",
           cost: "100元",
+          place:"浙江大学校医院玉泉校区",
+          diagnosis:"避免剧烈运动，注意静养休息",
+          rid:"9",
+          uid:this.user.id
         },
         {
           date: "2021-05-03",
           time: "19:30",
           reason: "发烧",
           cost: "100元",
+          place:"浙江大学校医院玉泉校区",
+          diagnosis:"避免剧烈运动，注意静养休息",
+          rid:"12",
+          uid:this.user.id
         },
-        {
-          date: "2021-05-03",
-          time: "19:30",
-          reason: "发烧",
-          cost: "100元",
-        },
-        {
-          date: "2021-05-03",
-          time: "19:30",
-          reason: "发烧",
-          cost: "100元",
-        },
-        {
-          date: "2021-05-03",
-          time: "19:30",
-          reason: "发烧",
-          cost: "100元",
-        },
+        
       ],
     };
   },
   methods: {
+    deleteRec(row){
+      console.log(row.rid)
+    },
     submit() {
       var priceReg = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
       if (priceReg.test(this.record_item.cost) === false) {
@@ -200,6 +234,14 @@ export default {
         return;
       }
       console.log(this.record_item);
+      this.tableData.unshift(this.record_item)
+      //需要提交成功后把表单清空，但是目前不是从服务器获得的数据
+      //在本地修改的数据是向tabledata中头插一个浅拷贝
+      //清空后会导致数据失效
+      //待实现了后端接口之后,需要将下面的代码解除注释
+      // Object.keys(this.record_item).forEach(key=>{
+      //   this.record_item[key]=""
+      // })
       this.$message("添加成功");
     },
     openAddDialog() {

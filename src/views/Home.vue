@@ -8,7 +8,7 @@
     </div>
     <div class="right">
       <Healthfile v-if="func_num==='1-1'" :user=user></Healthfile>
-      <Record v-if="func_num==='1-2'"></Record>
+      <Record v-if="func_num==='1-2'" :user=user></Record>
       <Food v-if="func_num==='2-1'"></Food>
       <Medicine v-if="func_num==='2-2'"></Medicine>
     </div>
@@ -37,7 +37,8 @@ export default {
     return {
       user:{//这一个user应该是从login.vue传过来的，后续会挪动到props里面。这里是为了测试，传给子组件用的
         name:"testuser",
-        gender:"女"
+        gender:"女",
+        id:"1234567"
       },
       func_num: '1-1'
     }
