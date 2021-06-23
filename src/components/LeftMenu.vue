@@ -16,22 +16,12 @@
             </el-menu-item-group>
           </el-submenu>
           <el-submenu index="2">
-            <span slot="title">我要就医</span>
-            <el-menu-item-group>
-              <el-menu-item class="subitem" index="2-1">在线诊治</el-menu-item>
-              <el-menu-item class="subitem" index="2-2">预约挂号</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="3">
             <span slot="title">健康百科</span>
             <el-menu-item-group>
-              <el-menu-item class="subitem" index="3-1">食物百科</el-menu-item>
-              <el-menu-item class="subitem" index="3-2">药物百科</el-menu-item>
+              <el-menu-item class="subitem" index="2-1">食物百科</el-menu-item>
+              <el-menu-item class="subitem" index="2-2">药物百科</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="4">
-            <span slot="title">反馈</span>
-          </el-menu-item>
         </el-menu>
     </div>
 </template>

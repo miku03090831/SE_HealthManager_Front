@@ -1,12 +1,13 @@
 <template>
     <div class="header">
         <div class="projname">互联网医疗健康平台</div>
-        <div class="user">未登录</div>
+        <div class="user">{{user.name}}</div>
     </div>
 </template>
 <script>
 export default {
-    name:'Header'
+    name:'Header',
+    props:["user"]
 }
 </script>
 

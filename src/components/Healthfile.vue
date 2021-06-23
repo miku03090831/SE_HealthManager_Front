@@ -1,7 +1,7 @@
 <template>
   <div class="healthfile">
       <div class="hdata">
-          <Healthdata></Healthdata>
+          <Healthdata :user=user></Healthdata>
       </div>
       <div class="hchart">
           <Healthchart></Healthchart>
@@ -17,7 +17,8 @@ export default {
   components: {
       Healthchart,
       Healthdata
-  }
+  },
+  props:["user"]
 }
 </script>
 

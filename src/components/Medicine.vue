@@ -15,31 +15,31 @@
       <el-input v-model="input" placeholder="请输入内容"></el-input>
       <el-button type="primary">搜索</el-button>
     </div>
-    <div class="food-list">
+    <div class="medicine-list">
       <el-scrollbar>
         <div>
-          <div v-for="(item, index) in 200" :key="index">
+          <div v-for="(item, index) in len" :key="index">
             <div class="item">
-              <el-card class="food-card">
+              <el-card class="medicine-card">
                 <div class="content">
                   <div slot="header" class="clearfix">
-                    <span>氨咖黄敏</span>
+                    <span>{{searchResult[index].name}}</span>
                   </div>
                   <div class="common-name">
-                    常用名：氨咖黄敏胶囊，速效感冒胶囊
+                    {{searchResult[index].commonName}}
                   </div>
                   <div class="effect">
-                    药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。
+                    {{searchResult[index].effect}}。
                   </div>
                 </div>
-                <div class="pic">
+                <!-- <div class="pic">
                   <img
                     src="../assets/氨咖黄敏.jpeg"
                     alt=""
                     width="100px"
                     height="100px"
                   />
-                </div>
+                </div> -->
               </el-card>
             </div>
           </div>
@@ -54,6 +54,7 @@ export default {
   name: "Medicine",
   data() {
     return {
+      input:"",
       count: 0,
       options: [
         {
@@ -66,12 +67,101 @@ export default {
         }
       ],
       value: "",
+      searchResult:[{
+        name:"氨咖黄敏1",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏2",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏3",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏4",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏5",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏6",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏7",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏8",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },{
+        name:"氨咖黄敏9",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏10",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏11",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏12",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏13",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏14",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏15",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏16",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      },
+      {
+        name:"氨咖黄敏17",
+        commonName:"氨咖黄敏胶囊",
+        effect:"药物功效：用于感冒引起的鼻塞、头痛、咽喉痛、发热等。"
+      }]
     };
   },
+  computed:{
+    len(){
+      return this.searchResult.length;
+    }
+  },
   methods: {
-    load() {
-      this.count += 2;
-    },
+    // load() {
+    //   this.count += 2;
+    // },
   },
 };
 </script>
@@ -93,7 +183,7 @@ export default {
   margin: 0 10px;
 }
 
-.food-list {
+.medicine-list {
   position: absolute;
   height: 85%;
   top: 15%;

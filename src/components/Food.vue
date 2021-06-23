@@ -17,28 +17,28 @@
     <div class="food-list">
       <el-scrollbar>
         <div>
-          <div v-for="(item, index) in 200" :key="index">
+          <div v-for="(item, index) in len" :key="index">
             <div class="item">
               <el-card class="food-card">
                 <div class="content">
                   <div slot="header" class="clearfix">
-                    <span>猪肉</span>
+                    <span>{{searchResult[index].name}}</span>
                   </div>
                   <div class="nutrition">
-                    营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克
+                    {{searchResult[index].nutrition}}
                   </div>
                   <div class="avoid">
-                    食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉
+                    {{searchResult[index].avoid}}
                   </div>
                 </div>
-                <div class="pic">
+                <!-- <div class="pic">
                   <img
                     src="../assets/pork.jpeg"
                     alt=""
                     width="100px"
                     height="100px"
                   />
-                </div>
+                </div> -->
               </el-card>
             </div>
           </div>
@@ -53,6 +53,7 @@ export default {
   name: "Food",
   data() {
     return {
+      input:"",
       count: 0,
       options: [
         {
@@ -73,12 +74,71 @@ export default {
         },
       ],
       value: "",
+      searchResult:[{
+        name:"猪肉1",
+        nutrition:"营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克",
+        avoid:"食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉"
+      },{
+        name:"猪肉2",
+        nutrition:"营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克",
+        avoid:"食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉"
+      },
+      {
+        name:"猪肉3",
+        nutrition:"营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克",
+        avoid:"食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉"
+      },
+      {
+        name:"猪肉4",
+        nutrition:"营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克",
+        avoid:"食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉"
+      },
+      {
+        name:"猪肉5",
+        nutrition:"营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克",
+        avoid:"食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉"
+      },
+      {
+        name:"猪肉6",
+        nutrition:"营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克",
+        avoid:"食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉"
+      },
+      {
+        name:"猪肉7",
+        nutrition:"营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克",
+        avoid:"食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉"
+      },
+      {
+        name:"猪肉8",
+        nutrition:"营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克",
+        avoid:"食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉"
+      },
+      {
+        name:"猪肉9",
+        nutrition:"营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克",
+        avoid:"食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉"
+      },
+      {
+        name:"猪肉10",
+        nutrition:"营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克",
+        avoid:"食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉"
+      },
+      {
+        name:"猪肉11",
+        nutrition:"营养含量（每100g）：热量143千卡，钙6毫克，蛋白质20.3克",
+        avoid:"食用禁忌：不宜同时大量饮茶，不宜多食煎炸咸肉"
+      }]
     };
   },
+  computed:{
+    len(){
+      return this.searchResult.length;
+    }
+  },
   methods: {
-    load() {
-      this.count += 2;
-    },
+    // load() {
+    //   this.count += 2;
+    // },
   },
 };
 </script>

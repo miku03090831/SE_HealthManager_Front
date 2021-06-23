@@ -1,7 +1,7 @@
 <template>
     <div class="Record">
         <StatOfRecord></StatOfRecord>
-        <RecordList></RecordList>
+        <RecordList :user=user></RecordList>
     </div>
 </template>
 
@@ -10,6 +10,7 @@ import StatOfRecord from "./StatOfRecord";
 import RecordList from "./RecordList";
 export default {
     name:'Record',
+    props:['user'],
     components:{
         StatOfRecord,
         RecordList
