@@ -1,7 +1,7 @@
 <template>
     <div class="Record">
-        <StatOfRecord></StatOfRecord>
-        <RecordList :user=user></RecordList>
+        <StatOfRecord :user="user"></StatOfRecord>
+        <RecordList :user="user"></RecordList>
     </div>
 </template>
 

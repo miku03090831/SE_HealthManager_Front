@@ -48,10 +48,10 @@
             <el-input v-model="userdata.blood_fat_HDL_C"></el-input>
           </el-form-item>
           <el-form-item label="裸眼视力（左）">
-            <el-input v-model="userdata.vison_left"></el-input>
+            <el-input v-model="userdata.vision_left"></el-input>
           </el-form-item>
           <el-form-item label="裸眼视力（右）">
-            <el-input v-model="userdata.vison_right"></el-input>
+            <el-input v-model="userdata.vision_right"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -156,7 +156,24 @@ export default {
     },
     submit(){
       this.editing=false;
+      this.$refs.editButton.$el.innerText="编辑";
       // console.log(this.userdata)
+      var date = new Date()
+      var nowdate = date.toISOString().slice(0, 19).replace('T', ' ');
+      console.log(nowdate)
+      this.userdata.date = nowdate;
+      this.$axios
+        .post("/userdata/adduserdata", this.userdata)
+        .then((res) => {
+          if (res.status === 200) {
+            console.log("获取最新个人档案");
+            console.log(res.data);
+            
+          }
+        })
+        .catch(() => {
+          this.$alert("错误");
+        });
     },
     openDialog(){
       //用来初始化对话框的内容
@@ -219,6 +236,33 @@ export default {
     },
     getData(){
       console.log("获取用户健康数据");
+      this.$axios
+        .post("/userdata/get1", {
+          uid: this.user.uid
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log("获取最新个人档案");
+            console.log(res.data);
+            this.userdata.weight = res.data.message[0].weight;
+            this.userdata.height = res.data.message[0].height;
+            this.userdata.bloodtype = res.data.message[0].bloodtype;
+            this.userdata.diastolic_pressure = res.data.message[0].diastolic_pressure;
+            this.userdata.systolic_pressure = res.data.message[0].systolic_pressure;
+            this.userdata.rest_heart_rate = res.data.message[0].rest_heart_rate;
+            this.userdata.blood_sugar_empty = res.data.message[0].blood_sugar_empty;
+            this.userdata.blood_sugar_full = res.data.message[0].blood_sugar_full;
+            this.userdata.blood_fat_TC = res.data.message[0].blood_fat_TC;
+            this.userdata.blood_fat_TG = res.data.message[0].blood_fat_TG;
+            this.userdata.blood_fat_LDL_C = res.data.message[0].blood_fat_LDL_C;
+            this.userdata.blood_fat_HDL_C = res.data.message[0].blood_fat_HDL_C;
+            this.userdata.vision_left = res.data.message[0].vision_left;
+            this.userdata.vision_right = res.data.message[0].vision_right;
+          }
+        })
+        .catch(() => {
+          this.$alert(res.data.message);
+        });
     },
     getMensesData(){
       console.log("获取用户生理期数据");
@@ -230,7 +274,7 @@ export default {
       return Math.floor(b * 100) / 100;
     }
   },
-  beforeMount(){
+  mounted(){
     this.getData();
     this.getMensesData();
   },
@@ -240,6 +284,8 @@ export default {
       dataform:false,
       mensesFormVisible:false,
       userdata: {
+        rid:0,
+        uid:this.user.uid,
         weight: 73, //单位:kg
         height: 178, //单位:cm
         //bmi设为computed属性，根据身高体重自动计算
@@ -253,8 +299,8 @@ export default {
         blood_fat_TG: "1", //血脂 甘油三酯
         blood_fat_LDL_C: "1", //血脂 低密度脂蛋白胆固醇
         blood_fat_HDL_C: "1", //血脂 高密度脂蛋白胆固醇
-        vison_left: "5.0", //左眼裸眼视力
-        vison_right: "5.0", //右眼裸眼视力
+        vision_left: "5.0", //左眼裸眼视力
+        vision_right: "5.0", //右眼裸眼视力
       },
       user_menses_data: {
         //专门用来记录女性月经周期的表

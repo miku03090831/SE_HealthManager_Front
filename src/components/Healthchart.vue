@@ -37,18 +37,20 @@ export default {
   data() {
     return {
       funcNum: 1, //为1代表体重，2代表身高，3代表血压，4代表血糖
-      weightX: ["5-1", "5-3", "5-5", "5-7", "5-9"],
-      weightY: [50, 72, 74, 73, 71],
-      heightX: ["5-1", "5-3", "5-5", "5-7", "5-9"],
-      heightY: [150, 172, 174, 173, 171],
-      bloodX: ["5-1", "5-3", "5-5", "5-7", "5-9"],
-      blood_d_Y: [80, 85, 77, 79, 82],
-      blood_s_Y: [130, 125, 127, 133, 128],
-      sugarX: ["5-1", "5-3", "5-5", "5-7", "5-9"],
-      sugar_empty_Y: [5.5, 5.1, 4.6, 4.5, 5.2],
-      sugar_full_Y: [7, 6.1, 6.2, 6.7, 6.5],
+      timeX: [],
+
+      weightY: [],
+
+      heightY: [],
+
+      blood_d_Y: [],
+      blood_s_Y: [],
+
+      sugar_empty_Y: [],
+      sugar_full_Y: [],
     };
   },
+  props: ["user"],
   methods: {
     changeFunc(num) {
       this.funcNum = num;
@@ -76,7 +78,7 @@ export default {
       const optionData = {
         xAxis: {
           type: "category",
-          data: this.weightX,
+          data: this.timeX,
         },
         yAxis: {
           type: "value",
@@ -106,7 +108,7 @@ export default {
       const optionData = {
         xAxis: {
           type: "category",
-          data: this.heightX,
+          data: this.timeX,
         },
         yAxis: {
           type: "value",
@@ -147,7 +149,7 @@ export default {
         },
         xAxis: {
           type: "category",
-          data: this.bloodX,
+          data: this.timeX,
         },
         yAxis: {
           type: "value",
@@ -212,7 +214,7 @@ export default {
         },
         xAxis: {
           type: "category",
-          data: this.sugarX,
+          data: this.timeX,
         },
         yAxis: {
           type: "value",
@@ -259,20 +261,56 @@ export default {
       };
       sugarChart.setOption(optionData);
     },
+    getData() {
+      this.$axios
+        .post("/userdata/get5", { uid: this.user.uid })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log("获取最新个人档案");
+            console.log(res.data);
+            this.timeX = [];
+            this.weightY = [];
+            this.heightY = [];
+            this.blood_d_Y = [];
+            this.blood_s_Y = [];
+            this.sugar_empty_Y = [];
+            this.sugar_full_Y = [];
+            for (let i in res.data.message) {
+              
+              this.timeX.push(res.data.message[i].userdatatime.slice(5,10));
+              this.weightY.push(res.data.message[i].weight);
+              this.heightY.push(res.data.message[i].height);
+              this.blood_d_Y.push(res.data.message[i].diastolic_pressure);
+              this.blood_s_Y.push(res.data.message[i].systolic_pressure);
+              this.sugar_empty_Y.push(res.data.message[i].blood_sugar_empty);
+              this.sugar_full_Y.push(res.data.message[i].blood_sugar_full);
+            }
+            this.weightInit();
+            this.heightInit();
+            this.bloodInit();
+            this.sugarInit();
+          }
+        })
+        .catch(() => {
+          this.$alert("错误");
+        });
+    },
     fresh() {
-      this.getWeight();
-      this.getHeight();
-      this.getBlood();
-      this.getSugar();
+      console.log("加载折线图数据");
+      this.getData();
+      console.log(this.timeX);
       this.weightInit();
       this.heightInit();
       this.bloodInit();
       this.sugarInit();
     },
   },
-  mounted() {
-    this.fresh();
-  },
+  // mounted() {
+  //   // this.fresh();
+  //   this.$nextTick(()=>{
+  //     this.fresh()
+  //   })
+  // },
 };
 </script>
 
@@ -281,17 +319,17 @@ h3 {
   text-align: center;
 }
 
-.button-box{
-    width: 90%;
-    margin: 20px 20px 20px 0px;
+.button-box {
+  width: 90%;
+  margin: 20px 20px 20px 0px;
 }
 
-.button-box .el-button{
-    margin-left: 10px;
+.button-box .el-button {
+  margin-left: 10px;
 }
 
-.button-box .fbutton{
-    margin: 0 80px;
+.button-box .fbutton {
+  margin: 0 80px;
 }
 
 .chart {

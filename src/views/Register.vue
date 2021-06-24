@@ -1,26 +1,53 @@
 <template>
   <div class="register">
-    <img src="../assets/bg.png" alt="" class="wave">
+    <img src="../assets/bg.png" alt="" class="wave" />
     <div class="container">
       <div class="img">
-        <img src="../assets/doctor.svg" alt="">
+        <img src="../assets/doctor.svg" alt="" />
       </div>
       <div class="register-box">
         <form action="">
-          <img src="../assets/avatar.svg" alt="" class="avatar">
+          <img src="../assets/avatar.svg" alt="" class="avatar" />
           <h2>Register</h2>
-          <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
+          <el-form
+            :model="ruleForm"
+            status-icon
+            :rules="rules"
+            ref="ruleForm"
+            label-width="80px"
+            class="demo-ruleForm"
+          >
             <el-form-item label="姓名" prop="username">
-              <el-input type="username" v-model="ruleForm.username" auto-complete="off"></el-input>
+              <el-input
+                type="username"
+                v-model="ruleForm.username"
+                auto-complete="off"
+              ></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="pass">
-              <el-input type="password" v-model="ruleForm.pass" maxlength="16" autocomplete="off" show-password></el-input>
+              <el-input
+                type="password"
+                v-model="ruleForm.pass"
+                maxlength="16"
+                autocomplete="off"
+                show-password
+              ></el-input>
             </el-form-item>
             <el-form-item label="确认密码" prop="checkPass">
-              <el-input type="password" v-model="ruleForm.checkPass" maxlength="16" autocomplete="off" show-password></el-input>
+              <el-input
+                type="password"
+                v-model="ruleForm.checkPass"
+                maxlength="16"
+                autocomplete="off"
+                show-password
+              ></el-input>
             </el-form-item>
             <el-form-item label="身份证号" prop="identity">
-              <el-input v-model.number="ruleForm.age" v-model="ruleForm.identity" auto-complete="off"></el-input>
+              <el-input
+                v-model.number="ruleForm.age"
+                v-model="ruleForm.identity"
+                auto-complete="off"
+              ></el-input>
             </el-form-item>
             <el-form-item label="性别" prop="sex">
               <el-radio-group v-model="ruleForm.sex">
@@ -29,7 +56,9 @@
               </el-radio-group>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+              <el-button type="primary" @click="submitForm('ruleForm')"
+                >提交</el-button
+              >
               <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
           </el-form>
@@ -43,84 +72,99 @@
 export default {
   data() {
     var checkID = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入身份证号'))
+      if (value === "") {
+        callback(new Error("请输入身份证号"));
       } else if (value.length !== 18) {
-        callback(new Error('18位身份证号！'))
+        callback(new Error("18位身份证号！"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     var checkName = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('用户名不能为空'))
+      if (value === "") {
+        callback(new Error("用户名不能为空"));
       } else if (value.length > 20 || value.length < 2) {
-        callback(new Error('姓名长度在2-15个字符之间'))
+        callback(new Error("姓名长度在2-15个字符之间"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     var validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码'))
+      if (value === "") {
+        callback(new Error("请输入密码"));
       } else if (value.length < 6) {
-        callback(new Error('密码应在6-16位字符之间'))
+        callback(new Error("密码应在6-16位字符之间"));
       } else {
-        if (this.ruleForm.checkPass !== '') {
-          this.$refs.ruleForm.validateField('checkPass')
+        if (this.ruleForm.checkPass !== "") {
+          this.$refs.ruleForm.validateField("checkPass");
         }
-        callback()
+        callback();
       }
-    }
+    };
     var validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'))
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
       } else if (value !== this.ruleForm.pass) {
-        callback(new Error('两次输入密码不一致!'))
+        callback(new Error("两次输入密码不一致!"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     return {
       ruleForm: {
-        pass: '',
-        checkPass: '',
-        identity: '',
-        username: '',
-        sex: '',
+        pass: "",
+        checkPass: "",
+        identity: "",
+        username: "",
+        sex: "",
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: 'blur' }],
-        checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-        identity: [{ validator: checkID, trigger: 'blur' }],
-        username: [{ validator: checkName, trigger: 'blur' }],
+        pass: [{ validator: validatePass, trigger: "blur" }],
+        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        identity: [{ validator: checkID, trigger: "blur" }],
+        username: [{ validator: checkName, trigger: "blur" }],
       },
-    }
+    };
   },
-  name: 'register',
+  name: "register",
   components: {},
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
+        let register = {
+          id: 0,
+          name: this.ruleForm.username,
+          password: this.ruleForm.pass,
+          gender: this.ruleForm.gender,
+          idcode: this.ruleForm.identity,
+        };
         if (valid) {
-          this.$alert('注册成功！', {
-            confirmButtonText: '确定',
-            callback: () => {
-            this.$router.push('/login')
-            }
-          })
-          
+          this.$axios
+            .post("/users/register", this.register)
+            .then((res) => {
+              if (res.status === 200) {
+                this.$alert("注册成功！", {
+                  confirmButtonText: "确定",
+                  callback: () => {
+                    this.$router.push("/login");
+                  },
+                });
+              }
+            })
+            .catch(() => {
+              this.$alert("登录失败");
+            });
         } else {
-          console.log('error submit!!')
-          return false
+          console.log("error submit!!");
+          return false;
         }
-      })
+      });
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields()
+      this.$refs[formName].resetFields();
     },
   },
-}
+};
 </script>
 <style scoped>
 .wave {
@@ -187,7 +231,7 @@ form h2 {
 
 .input-group:before,
 .input-group:after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   width: 0;
@@ -256,7 +300,7 @@ form h2 {
   padding: 0.5rem 0.7rem;
   font-size: 1.2rem;
   color: #555;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 a {
@@ -285,7 +329,7 @@ a:hover {
   cursor: pointer;
   color: #fff;
   text-transform: uppercase;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-size: 200%;
   transition: 0.5s;
 }

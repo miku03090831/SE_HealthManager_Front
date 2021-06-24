@@ -14,7 +14,7 @@
               <i class="fa fa-user"></i>
             </div>
             <div>
-              <el-input v-model="logininfo.username" placeholder="name" maxlength="10"></el-input>
+              <el-input v-model="logininfo.username" placeholder="name" maxlength="20"></el-input>
             </div>
           </div>
           <div class="input-group">
@@ -25,8 +25,8 @@
               <el-input v-model="logininfo.password" placeholder="Password" maxlength="12" show-password></el-input>
             </div>
           </div>
-          <input type="submit" class="btn" value="Login" @click="login()">
-          <input type="submit" class="btn" value="Register" id="visitor" @click="register()">
+          <input  class="btn" value="Login" @click="login()">
+          <input  class="btn" value="Register" id="visitor" @click="register()">
         </form>
       </div>
     </div>
@@ -47,8 +47,25 @@ export default {
   components: {},
   methods: {
     login() {
+      this.$axios.post("/users/login",this.logininfo).then(res=>{
+            if(res.status === 200){
+              console.log(res)
+              this.$router.push({
+                name:'Home',
+                params:{
+                  user:{
+                    name:res.data.name,
+                    uid:res.data.id,
+                    gender:res.data.gender
+                  }
+                }
+              });
+            }          
+          }).catch(()=>{
+            this.$alert("登录失败")
+          })
       console.log(this.logininfo)
-      this.$router.push('/')
+      // // this.$router.push('/')
     },
     register() {
       this.$router.push('/register')
@@ -230,6 +247,7 @@ a:hover {
 }
 
 .btn {
+  text-align: center;
   display: block;
   width: 100%;
   height: 50px;

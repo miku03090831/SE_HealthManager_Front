@@ -1,10 +1,10 @@
 <template>
   <div class="healthfile">
       <div class="hdata">
-          <Healthdata :user=user></Healthdata>
+          <Healthdata :user="user"></Healthdata>
       </div>
       <div class="hchart">
-          <Healthchart></Healthchart>
+          <Healthchart :user="user"></Healthchart>
       </div>
   </div>
 </template>
